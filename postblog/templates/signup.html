@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="col-sm-10">
+    <div class="row">
+        <h3 class="text-dark my-3 font-xo fs-1" ><i class="fa-solid fa-user-plus fa-2xl" style="color: #e51515;"></i> &nbsp; SIGN UP</h3>
+    </div>
+    <form method="POST" novalidate >
+        {% csrf_token %}
+        
+        {% for i in messages %}
+            <p
+          {% if i.tags %} class="alert alert-{{i.tags}} mb-5 "{% endif %} >
+          {{i}}
+           </p>
+        {% endfor %}
+      {% if form.non_field_errors %}
+        {% for err in form.non_field_errors %}
+         <span class="alert alert-danger "> {{err}}</span> 
+        {% endfor %}  
+      {% endif%}
+        {% if form %}
+          {% for i in form %}
+          <div class="form-group mx-5 ">
+           {{i.label_tag}} {{i}} <span class=" text-danger">{{i.errors|striptags}}</span>  <br>
+          </div> 
+          {% endfor%} 
+          {% endif %}
+          <input type="submit" class="btn btn-success mb-3" value="submit">
+
+          
+    </form>
+{% endblock %}

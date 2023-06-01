@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="col-sm-10">
+    <div class="row">
+        <h3 class="text-dark mt-5 font-xo fs-1" ><i class="fa-solid fa-user-tie fa-2xl" style="color: #3f2adf;"></i>&nbsp; &nbsp;Login Page</h3>
+    </div>
+    <form action="" method="POST" class='mt-5 mx-5' novalidate>
+          {% csrf_token %}
+        {%  if login.non_field_errors %}
+         {% for err in login.non_field_errors %}
+          <span class="alert alert-danger "> {{err}}</span>
+         {% endfor %}  
+        {% endif %} 
+        {% if login %}
+         {% for log in login %}
+          {{log.label_tag}}  {{log}} <span class="text-danger ">{{log.errors|striptags}}</span><br><br>
+         {% endfor %}
+        {% endif %}
+        
+        <button type="submit" class="btn btn-info btn-lg ">login</button>
+    </form>
+   
+
+{% endblock %}

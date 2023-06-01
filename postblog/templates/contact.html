@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="col-sm-10">
+    <div class="row">
+        <h3 class="text-dark my-5 font-xo fs-1"><i class="fa-solid fa-id-card-clip fa-2xl" style="color: #b64343;"></i> &nbsp; CONTACT US</h3>
+      <form action="{% url 'mysave' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-floating mb-3 ">
+              <input type="textinput" class="form-control" name="name" id="floatingInput" placeholder=" Enter Your Name">
+              <label for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating mb-3 ">
+             <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+             <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+             <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="message" style="height: 100px"></textarea>
+             <label for="floatingTextarea2">Comments</label>
+            </div>
+        </div>
+          <button type="submit" class="btn btn-danger">Send</button>
+      </form>    
+
+{% endblock %}

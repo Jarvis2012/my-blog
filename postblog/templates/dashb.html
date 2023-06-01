@@ -1,0 +1,62 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="col-sm-10">
+        <h3 class="text-dark mt-3 font-xo fs-1"> &nbsp;Dashboard </h3> 
+        <a href="{% url 'add' %}" class=" btn btn-dark my-3 "> ADD </a>
+        <h3 class="alert alert-primary text-center font-st fs-2"> Show Data</h3>   
+  {% if blog %}
+   <table class="table table-hover bg-info">
+     <thead>
+       <tr class="text-center">
+         <th scope="col" style="width:3%">ID</th>
+         <th scope="col" style="width:25%">Title</th>
+         <th scope="col" style="width:57%">Description</th>
+         <th scope="col" style="width:15%">Action</th>
+       </tr>
+     </thead>
+     <tbody>
+      {% for data in blog %}
+       <tr>
+         <th scope="row">{{blog.id}}</th>
+         <td>{{data.title}}</td>
+         <td>{{data.con}}</td>
+         <td> <a href="{% url 'myupdate' data.id %}" class="btn btn-warning btn-sm">Edit</a>
+          {% if perms.postblog.mydelete %}
+            <form action="{% url 'delete' data.id %}" method="POST" class="d-inline"> 
+                {% csrf_token %}
+              <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+             </form>
+          {% endif %}   
+         </td>
+       </tr>
+      {% endfor %}
+     </tbody>
+   </table>
+
+  {% else %}
+   <h4 class="text-center alert alert-danger">No Records</h4>
+  {% endif %}
+{% endblock %}
+{% block sidebar %}
+<div class="col-sm-2 text text-center text-dark">
+  <h2 class="my-3 font-my fs-1" >Profile</h2>
+  <h3 class="mt-3 font-xo fs-2">{{fullname}}</h3>
+  {% for grp in groups %}
+   <span class="font-my fs-2">{{grp.name}} </span> 
+  {% endfor %}
+</div>
+{%  endblock %}
+
+
+{%  block msg %}
+    {% if messages %}
+        {% for i in messages %}
+          <p{% if i.tags %} class="alert alert-{{i.tags}} mb-5 "{% endif %} >
+         {{i}}</p>
+        {% endfor %}
+        <div class="alert alert-danger" role="alert">Welcome to Dashboard</div>
+    {% endif %} 
+</div>       
+{% endblock %}
+
